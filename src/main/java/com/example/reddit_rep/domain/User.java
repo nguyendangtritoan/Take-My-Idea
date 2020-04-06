@@ -1,27 +1,42 @@
 package com.example.reddit_rep.domain;
 
+import com.example.reddit_rep.security.Authority;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String username;
     private String password;
     private String name;
 
-    public Integer getId() {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Authority> authoritySet = new HashSet<>();
+
+    public Set<Authority> getAuthoritySet() {
+        return authoritySet;
+    }
+
+    public void setAuthoritySet(Set<Authority> authoritySet) {
+        this.authoritySet = authoritySet;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String GetUsername() {
         return username;
     }
 
@@ -29,7 +44,7 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String GetPassword() {
         return password;
     }
 

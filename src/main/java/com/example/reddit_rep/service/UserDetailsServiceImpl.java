@@ -2,6 +2,7 @@ package com.example.reddit_rep.service;
 
 import com.example.reddit_rep.domain.User;
 import com.example.reddit_rep.repo.UserRepository;
+import com.example.reddit_rep.security.CustomSecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Invalid username and password");
         }
 
-        return (UserDetails) user;
+        return new CustomSecurityUser(user);
     }
 }
