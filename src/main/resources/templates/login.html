@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
+    <script
+            crossorigin="anonymous"
+            integrity="sha256-MlusDLJIP1GRgLrOflUQtshyP0TwT/RHXsI1wWGnQhs="
+            src="https://code.jquery.com/jquery-3.5.0.slim.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#createAccount").click(function () {
+                window.location.href = "/register"
+            })
+        });
+    </script>
 </head>
 <body>
 <h1>Login</h1>
@@ -27,6 +38,7 @@
             </p>
             <div>
                 <button type="submit" class="btn">Log in</button>
+                <button class="btn" id="createAccount" type="button">Create account</button>
             </div>
         </fieldset>
     </form>

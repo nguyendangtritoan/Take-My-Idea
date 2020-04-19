@@ -21,17 +21,17 @@ public class CustomSecurityUser extends User implements UserDetails {
 
     @Override
     public Set<Authority> getAuthorities() {
-        return this.getAuthoritySet();
+        return super.getAuthoritySet();
     }
 
     @Override
     public String getPassword() {
-        return this.GetPassword();
+        return super.GetPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.GetUsername();
+        return super.GetUsername();
     }
 
     @Override
