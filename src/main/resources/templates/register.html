@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Register</title>
+	<meta charset="UTF-8">
+	<title>Register</title>
 </head>
 <body>
 <h2>Register for an account</h2>
+<form action="" method="post">
+	<input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+	Name: <label>
+	<input th:field="${user.name}" type="text"/>
+</label><br/>
+	Email: <label>
+	<input th:field="${user.username}" type="text"/>
+</label><br/>
+	Password: <label>
+	<input th:field="${user.password}" type="password"/>
+</label><br/>
+	Confirm: <label>
+	<input id="confirmPassword" type="password">
+</label><br/><br/>
+	<button type="submit">Create account</button>
+</form>
 </body>
 </html>

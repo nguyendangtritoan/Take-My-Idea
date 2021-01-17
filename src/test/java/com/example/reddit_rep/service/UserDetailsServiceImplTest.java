@@ -14,6 +14,8 @@ class UserDetailsServiceImplTest {
         String rawPassword = "123";
         String encodedPassword = encoder.encode(rawPassword);
 
+        System.out.println(encodedPassword);
+
         assertThat(rawPassword, not(encodedPassword));
     }
 }

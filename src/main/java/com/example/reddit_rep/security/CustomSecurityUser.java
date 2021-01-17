@@ -11,12 +11,8 @@ public class CustomSecurityUser extends User implements UserDetails {
         this.setAuthoritySet(user.getAuthoritySet());
         this.setId(user.getId());
         this.setName(user.getName());
-        this.setPassword(user.GetPassword());
-        this.setUsername(user.GetUsername());
-    }
-
-    public CustomSecurityUser() {
-
+        this.setPassword(user.getPassword());
+        this.setUsername(user.getUsername());
     }
 
     @Override
@@ -26,12 +22,12 @@ public class CustomSecurityUser extends User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return super.GetPassword();
+        return super.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return super.GetUsername();
+        return super.getUsername();
     }
 
     @Override

@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 public class Comment {
 
     private CommentId pk;
-    private String tetx;
+    private String text;
 
     @EmbeddedId
     public CommentId getPk() {
@@ -22,11 +22,11 @@ public class Comment {
     }
 
     @Column(length = 5000)
-    public String getTetx() {
-        return tetx;
+    public String getText() {
+        return text;
     }
 
-    public void setTetx(String tetx) {
-        this.tetx = tetx;
+    public void setText(String text) {
+        this.text = text;
     }
 }

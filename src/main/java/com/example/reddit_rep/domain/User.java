@@ -20,14 +20,6 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Authority> authoritySet = new HashSet<>();
 
-    public Set<Authority> getAuthoritySet() {
-        return authoritySet;
-    }
-
-    public void setAuthoritySet(Set<Authority> authoritySet) {
-        this.authoritySet = authoritySet;
-    }
-
     public Long getId() {
         return id;
     }
@@ -36,7 +28,7 @@ public class User {
         this.id = id;
     }
 
-    public String GetUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -44,7 +36,7 @@ public class User {
         this.username = username;
     }
 
-    public String GetPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -58,5 +50,24 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Authority> getAuthoritySet() {
+        return authoritySet;
+    }
+
+    public void setAuthoritySet(Set<Authority> authoritySet) {
+        this.authoritySet = authoritySet;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", authoritySet=" + authoritySet +
+                '}';
     }
 }
