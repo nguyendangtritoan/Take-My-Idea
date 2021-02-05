@@ -1,8 +1,8 @@
-# **Agreement Service**
+# **MAKE IT BETTER**
 
 ## `What is it ?`
 
-   A Java web-application, allow everyone to contribute their idea to some product. 
+   A Java web-application, allow everyone to contribute their **awesome** idea to some **product**. 
 
 ## `Build with`
 
