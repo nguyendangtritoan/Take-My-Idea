@@ -14,9 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private UserDetailsService userDetailsService;
+
     @Qualifier("userDetailsServiceImpl")
     @Autowired
-    private UserDetailsService userDetailsService;
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
@@ -26,8 +30,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(userDetailsService)
-            .passwordEncoder(getPasswordEncoder());
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(getPasswordEncoder());
 
 //        auth.inMemoryAuthentication()
 //                .passwordEncoder(getPasswordEncoder())
@@ -42,14 +46,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                    .anyRequest().hasRole("USER").and()
+                .anyRequest().hasRole("USER").and()
                 .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/dashboard")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard")
+                .permitAll()
+                .and()
                 .logout()
-                    .logoutUrl("/logout")
-                    .permitAll();
+                .logoutUrl("/logout")
+                .permitAll();
     }
 }
