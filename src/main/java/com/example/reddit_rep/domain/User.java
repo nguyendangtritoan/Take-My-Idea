@@ -3,7 +3,6 @@ package com.example.reddit_rep.domain;
 import com.example.reddit_rep.security.Authority;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,10 +17,21 @@ public class User {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private Set<Authority> authoritySet = new HashSet<>();
+    private Set<Authority> authoritySet;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<Product> products = new HashSet<>();
+    private Set<Product> products;
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Feature> features;
+
+    public Set<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(Set<Feature> features) {
+        this.features = features;
+    }
 
     public Set<Product> getProducts() {
         return products;

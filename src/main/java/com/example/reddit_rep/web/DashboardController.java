@@ -3,7 +3,6 @@ package com.example.reddit_rep.web;
 import com.example.reddit_rep.domain.Product;
 import com.example.reddit_rep.domain.User;
 import com.example.reddit_rep.repo.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,8 +13,11 @@ import java.util.List;
 @Controller
 public class DashboardController {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public DashboardController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @GetMapping("/")
     public String rootView() {
@@ -30,4 +32,7 @@ public class DashboardController {
 
         return "dashboard";
     }
+
+    //TODO: get all products that not belong to user.
+    //TODO: get all products that to specific user (search engine)
 }

@@ -1,8 +1,9 @@
 package com.example.reddit_rep.web;
 
 import com.example.reddit_rep.domain.Feature;
+import com.example.reddit_rep.domain.User;
 import com.example.reddit_rep.service.FeatureService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,31 +16,41 @@ import java.net.URLEncoder;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/products/{productId}/features")
+@RequestMapping("/products/{productId}/features") //TODO: products/id/{productId}/features
 public class FeatureController {
 
-    @Autowired
-    private FeatureService featureService;
+    private final FeatureService featureService;
 
-    @PostMapping("")
-    public String createFeature(@PathVariable Long productId) {
-        Feature feature = featureService.creatFeature(productId);
-        return "redirect:/products/" + productId + "/features/" + feature.getId();
+    public FeatureController(FeatureService featureService) {
+        this.featureService = featureService;
     }
 
-    @GetMapping("{featureId}")
-    public String getFeature(@PathVariable Long productId, @PathVariable Long featureId, ModelMap modelMap) {
+    @PostMapping("")
+    public String createFeature(@AuthenticationPrincipal User user, @PathVariable Long productId) {
+
+        //TODO: Do not create feature when user have not clicked save button
+        Feature feature = featureService.creatFeature(productId, user);
+        return "redirect:/products/" + productId + "/features/" + feature.getId();
+    } //TODO: products/id/{productId}/features/id/{featureId}
+
+    @GetMapping("{featureId}") //TODO: /id/{featureId}
+    public String getFeature(@AuthenticationPrincipal User user, @PathVariable Long productId, @PathVariable Long featureId, ModelMap modelMap) {
         Optional<Feature> featureOpt = featureService.findById(featureId);
         if (featureOpt.isPresent()) {
-            modelMap.put("feature", featureOpt.get());
+            Feature feature = featureOpt.get();
+            modelMap.put("feature", feature);
+            //modelMap.put("comments", feature.getComments());
         } //TODO: handle situation can't find feature by its id
+
+        modelMap.put("user", user);
 
         return "feature";
     }
 
     @PostMapping("{featureId}")
-    public String updateFeature(Feature feature, @PathVariable Long productId, @PathVariable Long featureId) {
+    public String updateFeature(@AuthenticationPrincipal User user, Feature feature, @PathVariable Long productId, @PathVariable Long featureId) {
 
+        feature.setUser(user);
         feature = featureService.save(feature);
 
         String encodedProductName = null;
@@ -49,6 +60,6 @@ public class FeatureController {
             e.printStackTrace();
         }
 
-        return "redirect:/p/" + encodedProductName;
+        return "redirect:/p/" + encodedProductName; //TODO: /products/name/{productName}
     }
 }

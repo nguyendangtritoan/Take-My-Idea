@@ -2,10 +2,9 @@ package com.example.reddit_rep.web;
 
 import com.example.reddit_rep.domain.Product;
 import com.example.reddit_rep.domain.User;
-import com.example.reddit_rep.repo.ProductRepository;
+import com.example.reddit_rep.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -24,14 +23,17 @@ import java.util.Optional;
 @Controller
 public class ProductController {
 
-    private Logger log = LoggerFactory.getLogger(ProductController.class);
+    private final Logger log = LoggerFactory.getLogger(ProductController.class);
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductService productService;
 
-    @GetMapping("/products/{productId}")
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/products/{productId}") //TODO: /products/id/{productId}
     public String getProduct(@PathVariable Long productId, ModelMap modelMap, HttpServletResponse response) throws IOException {
-        Optional<Product> productOptional = productRepository.findById(productId);
+        Optional<Product> productOptional = productService.findProductById(productId);
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
             modelMap.put("product", product);
@@ -42,27 +44,26 @@ public class ProductController {
         return "product";
     }
 
-    @PostMapping("products/{productId}")
+    @PostMapping("products/{productId}") //TODO: /products/id/{productId}
     public String saveProduct(@PathVariable Long productId, Product product) {
 
-        product = productRepository.save(product);
+        product = productService.saveProduct(product);
 
         return "redirect:/products/" + product.getId();
     }
 
-    @GetMapping("/p/{productName}")
+    @GetMapping("/p/{productName}") //TODO: /products/name/{productName}
     public String productUserView(@PathVariable String productName, ModelMap modelMap) {
 
         if (productName != null) {
             try {
                 String decodeProductName = URLDecoder.decode(productName, StandardCharsets.UTF_8.name());
-                Optional<Product> productOptional = productRepository.findByName(decodeProductName);
+                Optional<Product> productOptional = productService.findProductByName(decodeProductName);
 
                 productOptional.ifPresent(product -> modelMap.put("product", product));
             } catch (UnsupportedEncodingException e) {
                 log.error("Error in decoding a product URL", e);
             }
-            productRepository.findByName(productName);
         }
         return "productUserView";
     }
@@ -75,7 +76,7 @@ public class ProductController {
         product.setPublished(false);
         product.setUser(user);
 
-        product = productRepository.save(product);
+        product = productService.saveProduct(product);
 
         return "redirect:/products/" + product.getId();
     }

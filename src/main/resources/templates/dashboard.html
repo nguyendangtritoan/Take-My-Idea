@@ -14,18 +14,23 @@
 		</div>
 	</div>
 
-	<div class="card my-2" th:each="product : ${products}">
-		<div class="card-body">
-			<h5 class="card-title" th:text="${product.name}">Special title treatment</h5>
-			<h6 class="card-subtitle mb-2">
-					<span th:class="${product.published ? 'badge badge-pill badge-success' : 'badge badge-pill badge-secondary'}"
-					      th:text="${product.published ? 'Published' : 'Not published'}">
-						Not known
-					</span>
-			</h6>
-			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-			<a class="btn btn-warning" th:href="@{/products/{productId}(productId=${product.id})}">Edit</a>
-			<a class="btn btn-info" th:href="@{/p/{productName}(productName=${product.name})}">View feature request</a>
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div class="col" th:each="product : ${products}">
+			<div class="card m-2">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${product.name}">Special title treatment</h5>
+					<h6 class="card-subtitle mb-2">
+							<span th:class="${product.published ? 'badge badge-pill badge-success' : 'badge badge-pill badge-secondary'}"
+							      th:text="${product.published ? 'Published' : 'Not published'}">
+								Not known
+							</span>
+					</h6>
+					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+					<a class="btn btn-warning" th:href="@{/products/{productId}(productId=${product.id})}">Edit</a>
+					<a class="btn btn-info" th:href="@{/p/{productName}(productName=${product.name})}">View feature
+					                                                                                   request</a>
+				</div>
+			</div>
 		</div>
 	</div>
 

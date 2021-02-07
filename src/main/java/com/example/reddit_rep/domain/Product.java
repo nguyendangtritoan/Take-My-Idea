@@ -1,7 +1,6 @@
 package com.example.reddit_rep.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,7 +15,7 @@ public class Product {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-    private Set<Feature> features = new HashSet<>();
+    private Set<Feature> features;
 
     private Boolean published;
 

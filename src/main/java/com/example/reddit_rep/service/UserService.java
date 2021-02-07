@@ -3,16 +3,20 @@ package com.example.reddit_rep.service;
 import com.example.reddit_rep.domain.User;
 import com.example.reddit_rep.repo.UserRepository;
 import com.example.reddit_rep.security.Authority;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
+    private final UserRepository userRepo;
 
-    private UserRepository userRepo;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepo, PasswordEncoder passwordEncoder) {
+        this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public User save(User user) {
         String encodePass = passwordEncoder.encode((user.getPassword()));
@@ -26,14 +30,5 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    @Autowired
-    public void setUserRepo(UserRepository userRepo) {
-        this.userRepo = userRepo;
-    }
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
 }

@@ -1,6 +1,7 @@
 package com.example.reddit_rep.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Feature {
@@ -12,8 +13,30 @@ public class Feature {
     private String description;
     private String status;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pk.feature")
+    private Set<Comment> comments;
+
+    @ManyToOne
+    private User user;
+
     @ManyToOne
     private Product product;
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Product getProduct() {
         return product;

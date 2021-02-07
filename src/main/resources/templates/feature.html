@@ -27,14 +27,31 @@
 		<input th:field="${feature.status}" type="hidden" />
 		<div class="form-group">
 			<label for="title">Title:</label>
-			<input class="form-control" id="title" th:field="${feature.title}" type="text">
+			<input class="form-control" id="title" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}"
+			       th:field="${feature.title}" type="text">
 		</div>
 		<div class="form-group">
 			<label for="desc">Description:</label>
-			<textarea class="form-control" id="desc" th:field="${feature.description}" type="text"></textarea>
+			<textarea class="form-control" id="desc" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}"
+			          th:field="${feature.description}" type="text"></textarea>
 		</div>
-		<div class="form-group">
+		<div class="form-group" th:if="${user.id == feature.user.id}">
 			<button class="btn btn-primary" type="submit">Save</button>
+		</div>
+
+		<div style="margin-top: 2em">
+			<h2>Comment</h2>
+			<form action="" method="post">
+				<input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden" />
+
+				<div class="form-group" style="margin-top: 1.5em">
+					<label for="comment">Leave a comment below</label>
+					<textarea class="form-control" id="comment" rows="2"></textarea>
+				</div>
+				<div>
+					<button class="btn btn-primary" type="submit">Add Comment</button>
+				</div>
+			</form>
 		</div>
 	</form>
 </div>
