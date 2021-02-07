@@ -3,6 +3,8 @@ package com.example.reddit_rep.web;
 import com.example.reddit_rep.domain.Product;
 import com.example.reddit_rep.domain.User;
 import com.example.reddit_rep.repo.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,10 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @Controller
 public class ProductController {
+
+    private Logger log = LoggerFactory.getLogger(ProductController.class);
 
     @Autowired
     private ProductRepository productRepository;
@@ -43,8 +50,26 @@ public class ProductController {
         return "redirect:/products/" + product.getId();
     }
 
+    @GetMapping("/p/{productName}")
+    public String productUserView(@PathVariable String productName, ModelMap modelMap) {
+
+        if (productName != null) {
+            try {
+                String decodeProductName = URLDecoder.decode(productName, StandardCharsets.UTF_8.name());
+                Optional<Product> productOptional = productRepository.findByName(decodeProductName);
+
+                productOptional.ifPresent(product -> modelMap.put("product", product));
+            } catch (UnsupportedEncodingException e) {
+                log.error("Error in decoding a product URL", e);
+            }
+            productRepository.findByName(productName);
+        }
+        return "productUserView";
+    }
+
     @PostMapping("/products")
     public String createProduct(@AuthenticationPrincipal User user) {
+
         Product product = new Product();
 
         product.setPublished(false);

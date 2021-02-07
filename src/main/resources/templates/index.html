@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Reddit</title>
+	<script th:replace="fragments/header.html :: headerElement"></script>
+	<title>Feature Vote</title>
+
 </head>
 <body>
-<h1>Welcome to my Reddit</h1>
-<a href="/dashboard">Login</a>
+<div th:replace="fragments/header.html :: header"></div>
+<div class="container" style="margin-top: 2em">
+	<div class="row">
+		<div class="col-8">
+			<h1>Welcome to my Reddit</h1>
+		</div>
+	</div>
+</div>
 </body>
 </html>
