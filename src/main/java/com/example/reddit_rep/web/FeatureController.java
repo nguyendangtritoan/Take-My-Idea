@@ -16,7 +16,7 @@ import java.net.URLEncoder;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/products/{productId}/features") //TODO: products/id/{productId}/features
+@RequestMapping("/product/id/{productId}/feature")
 public class FeatureController {
 
     private final FeatureService featureService;
@@ -30,10 +30,10 @@ public class FeatureController {
 
         //TODO: Do not create feature when user have not clicked save button
         Feature feature = featureService.creatFeature(productId, user);
-        return "redirect:/products/" + productId + "/features/" + feature.getId();
-    } //TODO: products/id/{productId}/features/id/{featureId}
+        return "redirect:/product/id/" + productId + "/feature/id/" + feature.getId();
+    }
 
-    @GetMapping("{featureId}") //TODO: /id/{featureId}
+    @GetMapping("/id/{featureId}")
     public String getFeature(@AuthenticationPrincipal User user, @PathVariable Long productId, @PathVariable Long featureId, ModelMap modelMap) {
         Optional<Feature> featureOpt = featureService.findById(featureId);
         if (featureOpt.isPresent()) {
@@ -47,7 +47,7 @@ public class FeatureController {
         return "feature";
     }
 
-    @PostMapping("{featureId}")
+    @PostMapping("/id/{featureId}")
     public String updateFeature(@AuthenticationPrincipal User user, Feature feature, @PathVariable Long productId, @PathVariable Long featureId) {
 
         feature.setUser(user);
@@ -60,6 +60,6 @@ public class FeatureController {
             e.printStackTrace();
         }
 
-        return "redirect:/p/" + encodedProductName; //TODO: /products/name/{productName}
+        return "redirect:/product/name/" + encodedProductName;
     }
 }

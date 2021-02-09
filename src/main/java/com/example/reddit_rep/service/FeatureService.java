@@ -35,7 +35,9 @@ public class FeatureService {
 
             feature.setUser(user);
 
-            return (Feature) featureRepository.save(feature);
+            feature = featureRepository.save(feature);
+
+            return feature;
         }
         return feature;
     }

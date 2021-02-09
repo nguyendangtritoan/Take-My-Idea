@@ -26,9 +26,10 @@
 							</span>
 					</h6>
 					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a class="btn btn-warning" th:href="@{/products/{productId}(productId=${product.id})}">Edit</a>
-					<a class="btn btn-info" th:href="@{/p/{productName}(productName=${product.name})}">View feature
-					                                                                                   request</a>
+					<a class="btn btn-warning" th:href="@{/product/id/{productId}(productId=${product.id})}">Edit</a>
+					<a class="btn btn-info" th:href="@{/product/name/{productName}(productName=${product.name})}">View
+					                                                                                              feature
+					                                                                                              request</a>
 				</div>
 			</div>
 		</div>
@@ -36,7 +37,7 @@
 
 	<div class="row">
 		<div class="col">
-			<form action="/products" method="post">
+			<form action="/product/" method="post">
 				<input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden" />
 				<button class="btn btn-primary" id="create_product">Create product</button>
 			</form>

@@ -14,12 +14,22 @@ public class Product {
     @ManyToOne
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product", orphanRemoval = true)
     private Set<Feature> features;
 
     private Boolean published;
 
     public Product() {
+    }
+
+    public void addFeature(Feature feature) {
+        features.add(feature);
+        feature.setProduct(this);
+    }
+
+    public void removeFeature(Feature feature) {
+        features.remove(feature);
+        feature.setProduct(null);
     }
 
     public Boolean getPublished() {

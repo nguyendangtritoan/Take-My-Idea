@@ -13,14 +13,40 @@ public class Feature {
     private String description;
     private String status;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pk.feature")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "feature", orphanRemoval = true)
     private Set<Comment> comments;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "feature", orphanRemoval = true)
+    private Set<Vote> votes;
 
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    public Feature() {
+    }
+
+    public void addVote(Vote vote) {
+        votes.add(vote);
+        vote.setFeature(this);
+    }
+
+    public void removeVote(Vote vote) {
+        votes.add(vote);
+        vote.setFeature(null);
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setFeature(this);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.add(comment);
+        comment.setFeature(null);
+    }
 
     public Set<Comment> getComments() {
         return comments;
