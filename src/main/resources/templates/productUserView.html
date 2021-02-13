@@ -8,18 +8,15 @@
 <body>
 <div th:replace="fragments/header.html :: header"></div>
 <div class="container" th:if="${product != null}">
-	<h1 th:text="${product.name}">Product</h1>
-
-	<div th:each="feature : ${product.features}">
-		<a th:href="@{/product/id/{productId}/feature/id/{featureId}(productId=${product.id},featureId=${feature.id})} "
-		   th:text="${feature.title}"></a>
-	</div>
-
+	<h1 th:text="|List of features ${product.name}|">Product</h1>
 	<form method="post" th:action="@{/product/id/{productId}/feature(productId=${product.id})}">
 		<input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden" />
 
 		<button class="btn btn-primary" type="submit">Create Feature Request</button>
 	</form>
+	<div th:replace="fragments/featureComponent.html :: featureFragment"></div>
+
+
 </div>
 </body>
 </html>

@@ -20,40 +20,62 @@
 		</div>
 	</div>
 
-	<form action="" class="mt-1" method="post">
-		<input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden" />
-		<input th:field="${feature.id}" type="hidden" />
-		<input th:field="${feature.product}" type="hidden" />
-		<input th:field="${feature.status}" type="hidden" />
-		<div class="form-group">
-			<label for="title">Title:</label>
-			<input class="form-control" id="title" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}"
-			       th:field="${feature.title}" type="text">
-		</div>
-		<div class="form-group">
-			<label for="desc">Description:</label>
-			<textarea class="form-control" id="desc" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}"
-			          th:field="${feature.description}" type="text"></textarea>
-		</div>
-		<div class="form-group" th:if="${user.id == feature.user.id}">
-			<button class="btn btn-primary" type="submit">Save</button>
+	<div class="d-flex bd-highlight">
+		<div class="voteBar p-2 flex-shrink-1 bd-highlight">
+			<div>
+				<a href="#">
+					<svg class="bi bi-caret-up-fill" fill="cadetblue" height="64" viewBox="0 0 16 16" width="64"
+					     xmlns="http://www.w3.org/2000/svg">
+						<path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+					</svg>
+				</a>
+			</div>
+			<div class="text-center font-weight-bold">3</div>
+			<div>
+				<a href="#">
+					<svg class="bi bi-caret-down-fill" fill="cadetblue" height="64" viewBox="0 0 16 16" width="64"
+					     xmlns="http://www.w3.org/2000/svg">
+						<path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+					</svg>
+				</a>
+			</div>
 		</div>
 
-		<div style="margin-top: 2em">
-			<h2>Comment</h2>
-			<form action="" method="post">
-				<input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden" />
+		<form action="" class="mt-1 p-2 w-100 bd-highlight" method="post">
+			<input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden" />
+			<input th:field="${feature.id}" type="hidden" />
+			<input th:field="${feature.product}" type="hidden" />
+			<input th:field="${feature.status}" type="hidden" />
+			<div class="form-group">
+				<label for="title">Title:</label>
+				<input class="form-control" id="title" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}"
+				       th:field="${feature.title}" type="text">
+			</div>
+			<div class="form-group">
+				<label for="desc">Description:</label>
+				<textarea class="form-control" id="desc" th:disabled="${user.id == feature.user.id ? 'false' : 'true'}"
+				          th:field="${feature.description}" type="text"></textarea>
+			</div>
+			<div class="form-group" th:if="${user.id == feature.user.id}">
+				<button class="btn btn-info" type="submit">Save</button>
+			</div>
 
-				<div class="form-group" style="margin-top: 1.5em">
-					<label for="comment">Leave a comment below</label>
-					<textarea class="form-control" id="comment" rows="2"></textarea>
-				</div>
-				<div>
-					<button class="btn btn-primary" type="submit">Add Comment</button>
-				</div>
-			</form>
-		</div>
-	</form>
+			<div style="margin-top: 2em">
+				<h2>Comment</h2>
+				<form action="" method="post">
+					<input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden" />
+
+					<div class="form-group" style="margin-top: 1.5em">
+						<label for="comment">Leave a comment below</label>
+						<textarea class="form-control" id="comment" rows="2"></textarea>
+					</div>
+					<div>
+						<button class="btn btn-info" type="submit">Add Comment</button>
+					</div>
+				</form>
+			</div>
+		</form>
+	</div>
 </div>
 </body>
 </html>

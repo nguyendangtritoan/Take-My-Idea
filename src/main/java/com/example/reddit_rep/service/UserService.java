@@ -6,6 +6,8 @@ import com.example.reddit_rep.security.Authority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -30,5 +32,11 @@ public class UserService {
         return userRepo.save(user);
     }
 
+    public User getUserByName(String name) {
+
+        Optional<User> userOpt = Optional.ofNullable(userRepo.findByName(name));
+
+        return userOpt.orElse(null);
+    }
 
 }

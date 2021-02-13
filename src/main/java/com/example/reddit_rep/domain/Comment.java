@@ -1,7 +1,7 @@
 package com.example.reddit_rep.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -11,6 +11,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private Date createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Feature feature;
@@ -18,11 +19,12 @@ public class Comment {
     @ManyToOne
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "parent_id", nullable = true)
     private Comment parent;
 
-    @OneToMany(mappedBy = "parent", orphanRemoval = true)
-    private Set<Comment> children = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
+    private Set<Comment> children;
 
     public Comment() {
     }
@@ -35,6 +37,14 @@ public class Comment {
     public void removeChildren(Comment comment) {
         children.remove(comment);
         comment.setParent(null);
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Long getId() {

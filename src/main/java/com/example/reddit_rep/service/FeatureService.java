@@ -31,7 +31,7 @@ public class FeatureService {
             feature.setStatus("Pending review");
 
             feature.setProduct(product);
-            //product.getFeatures().add(feature); //TODO: Does product auto update its Set of feature when feature.setProduct(p) is executed
+            //product.getFeatures().add(feature); //TODO: Does product auto update its Set of feature when feature.setProduct(p) is executed? Yes
 
             feature.setUser(user);
 
