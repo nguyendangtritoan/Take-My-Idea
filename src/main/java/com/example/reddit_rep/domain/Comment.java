@@ -1,32 +1,97 @@
 package com.example.reddit_rep.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Embeddable
 public class Comment {
 
-    private CommentId pk;
-    private String text;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String content;
+    private Date createdDate;
 
-    @EmbeddedId
-    public CommentId getPk() {
-        return pk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Feature feature;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id", nullable = true)
+    private Comment parent;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
+    private Set<Comment> children;
+
+    public Comment() {
     }
 
-    public void setPk(CommentId pk) {
-        this.pk = pk;
+    public void addChildren(Comment comment) {
+        children.add(comment);
+        comment.setParent(this);
     }
 
-    @Column(length = 5000)
-    public String getText() {
-        return text;
+    public void removeChildren(Comment comment) {
+        children.remove(comment);
+        comment.setParent(null);
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Feature getFeature() {
+        return feature;
+    }
+
+    public void setFeature(Feature feature) {
+        this.feature = feature;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Comment getParent() {
+        return parent;
+    }
+
+    public void setParent(Comment parent) {
+        this.parent = parent;
+    }
+
+    public Set<Comment> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Comment> children) {
+        this.children = children;
     }
 }

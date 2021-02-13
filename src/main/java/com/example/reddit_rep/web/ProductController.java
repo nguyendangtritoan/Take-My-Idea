@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/product")
 public class ProductController {
 
     private final Logger log = LoggerFactory.getLogger(ProductController.class);
@@ -31,7 +33,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/products/{productId}") //TODO: /products/id/{productId}
+    @GetMapping("/id/{productId}")
     public String getProduct(@PathVariable Long productId, ModelMap modelMap, HttpServletResponse response) throws IOException {
         Optional<Product> productOptional = productService.findProductById(productId);
         if (productOptional.isPresent()) {
@@ -44,15 +46,15 @@ public class ProductController {
         return "product";
     }
 
-    @PostMapping("products/{productId}") //TODO: /products/id/{productId}
+    @PostMapping("/id/{productId}")
     public String saveProduct(@PathVariable Long productId, Product product) {
 
         product = productService.saveProduct(product);
 
-        return "redirect:/products/" + product.getId();
+        return "redirect:/product/id/" + product.getId();
     }
 
-    @GetMapping("/p/{productName}") //TODO: /products/name/{productName}
+    @GetMapping("/name/{productName}")
     public String productUserView(@PathVariable String productName, ModelMap modelMap) {
 
         if (productName != null) {
@@ -68,7 +70,7 @@ public class ProductController {
         return "productUserView";
     }
 
-    @PostMapping("/products")
+    @PostMapping("/")
     public String createProduct(@AuthenticationPrincipal User user) {
 
         Product product = new Product();
@@ -78,6 +80,6 @@ public class ProductController {
 
         product = productService.saveProduct(product);
 
-        return "redirect:/products/" + product.getId();
+        return "redirect:/product/id/" + product.getId();
     }
 }

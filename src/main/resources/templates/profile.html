@@ -10,7 +10,7 @@
 <div class="container mt-2">
 	<div class="row">
 		<div class="col-8">
-			<h1 th:inline="text">All products</h1>
+			<h1 th:inline="text" th:text="|${username} product|">My product</h1>
 		</div>
 	</div>
 
@@ -39,9 +39,6 @@
 					<a class="btn btn-info" th:href="@{/product/name/{productName}(productName=${product.name})}">View
 					                                                                                              feature
 					                                                                                              request</a>
-				</div>
-				<div class="card-footer text-muted" th:text="|By ${product.user.name}|">
-					By ...
 				</div>
 			</div>
 		</div>

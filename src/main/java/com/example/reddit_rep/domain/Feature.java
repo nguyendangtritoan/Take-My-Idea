@@ -1,6 +1,7 @@
 package com.example.reddit_rep.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,14 +14,44 @@ public class Feature {
     private String description;
     private String status;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pk.feature")
-    private Set<Comment> comments;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "feature", orphanRemoval = true)
+    private Set<Comment> comments = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "feature", orphanRemoval = true)
+    private Set<Vote> votes = new HashSet<>();
 
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    public Feature() {
+    }
+
+    public Feature addVote(Vote vote) {
+        votes.add(vote);
+        vote.setFeature(this);
+        return this;
+    }
+
+    public Feature removeVote(Vote vote) {
+        votes.add(vote);
+        vote.setFeature(null);
+        return this;
+    }
+
+    public Feature addComment(Comment comment) {
+        comments.add(comment);
+        comment.setFeature(this);
+        return this;
+    }
+
+    public Feature removeComment(Comment comment) {
+        comments.add(comment);
+        comment.setFeature(null);
+        return this;
+    }
 
     public Set<Comment> getComments() {
         return comments;
@@ -76,5 +107,13 @@ public class Feature {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
     }
 }

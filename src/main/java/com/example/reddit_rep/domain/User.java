@@ -25,6 +25,26 @@ public class User {
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Feature> features;
 
+    public void addProduct(Product product) {
+        products.add(product);
+        product.setUser(this);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+        product.setUser(null);
+    }
+
+    public void addFeature(Feature feature) {
+        features.add(feature);
+        feature.setUser(this);
+    }
+
+    public void removeFeature(Feature feature) {
+        features.remove(feature);
+        feature.setUser(null);
+    }
+
     public Set<Feature> getFeatures() {
         return features;
     }

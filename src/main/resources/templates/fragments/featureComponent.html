@@ -1,0 +1,27 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="featureFragment" th:remove="tag">
+	<div th:each="feature : ${product.features}">
+		<div class="d-flex my-4 bg-light border border-info px-5">
+			<div class="cp d-flex mx-2 text-center font-italic mx-5">
+				<div class="votes mx-2">
+					<div class="mini-count">2</div>
+					<div>votes</div>
+				</div>
+				<div class="comments mx-2">
+					<div class="mini-count">2</div>
+					<div>comments</div>
+				</div>
+			</div>
+			<div class="badge bg-light text-dark d-flex flex-column pl-5">
+				<a style="font-size: 20px;"
+				   th:href="@{/product/id/{productId}/feature/id/{featureId}(productId=${product.id},featureId=${feature.id})} "
+				   th:text="${feature.title != null ? feature.title : feature.id}"></a>
+				<a th:href="@{/profile/user/{name}(name=${feature.user.name})}"
+				   th:text="|Request by ${feature.user.name}|"></a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
