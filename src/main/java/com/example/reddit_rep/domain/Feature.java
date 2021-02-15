@@ -17,8 +17,7 @@ public class Feature {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "feature", orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "feature", orphanRemoval = true)
-    private Set<Vote> votes = new HashSet<>();
+    private int votes;
 
     @ManyToOne
     private User user;
@@ -29,15 +28,11 @@ public class Feature {
     public Feature() {
     }
 
-    public Feature addVote(Vote vote) {
-        votes.add(vote);
-        vote.setFeature(this);
-        return this;
-    }
-
-    public Feature removeVote(Vote vote) {
-        votes.add(vote);
-        vote.setFeature(null);
+    public Feature vote(boolean vote) {
+        if (vote)
+            this.votes++;
+        else
+            this.votes--;
         return this;
     }
 
@@ -109,11 +104,11 @@ public class Feature {
         this.status = status;
     }
 
-    public Set<Vote> getVotes() {
+    public int getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<Vote> votes) {
+    public void setVotes(int votes) {
         this.votes = votes;
     }
 }

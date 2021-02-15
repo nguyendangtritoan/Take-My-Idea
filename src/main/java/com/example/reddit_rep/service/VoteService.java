@@ -5,6 +5,7 @@ import com.example.reddit_rep.repo.VoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VoteService {
@@ -21,5 +22,15 @@ public class VoteService {
 
     public void saveVote(Vote vote) {
         voteRepository.save(vote);
+    }
+
+    public Vote checkVote(Long featureId, Long userId) {
+        Optional<Vote> voteOpt = voteRepository.findByUserIdAndFeatureId(featureId, userId);
+
+        return voteOpt.orElse(null);
+    }
+
+    public void deleteVote(Long featureId, Long userId) {
+        voteRepository.deleteVote(featureId, userId);
     }
 }

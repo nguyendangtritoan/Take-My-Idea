@@ -24,6 +24,14 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public Product updateProduct(Long productId, Product product) {
+        Product existingProduct = productRepository.findById(productId).orElse(null);
+        assert existingProduct != null;
+        existingProduct.setPublished(product.getPublished());
+        existingProduct.setName(product.getName());
+        return productRepository.save(existingProduct);
+    }
+
     public Optional<Product> findProductById(Long id) {
         return productRepository.findById(id);
     }

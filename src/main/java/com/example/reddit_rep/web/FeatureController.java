@@ -39,6 +39,7 @@ public class FeatureController {
         if (featureOpt.isPresent()) {
             Feature feature = featureOpt.get();
             modelMap.put("feature", feature);
+            modelMap.put("votes", feature.getVotes());
             //modelMap.put("comments", feature.getComments());
         } //TODO: handle situation can't find feature by its id
 

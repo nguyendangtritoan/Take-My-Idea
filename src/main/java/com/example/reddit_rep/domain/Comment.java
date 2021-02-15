@@ -2,6 +2,7 @@ package com.example.reddit_rep.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,7 @@ public class Comment {
     private Comment parent;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
-    private Set<Comment> children;
+    private Set<Comment> children = new HashSet<>();
 
     public Comment() {
     }

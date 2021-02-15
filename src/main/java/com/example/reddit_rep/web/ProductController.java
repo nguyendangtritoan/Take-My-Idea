@@ -49,7 +49,7 @@ public class ProductController {
     @PostMapping("/id/{productId}")
     public String saveProduct(@PathVariable Long productId, Product product) {
 
-        product = productService.saveProduct(product);
+        product = productService.updateProduct(productId, product);
 
         return "redirect:/product/id/" + product.getId();
     }

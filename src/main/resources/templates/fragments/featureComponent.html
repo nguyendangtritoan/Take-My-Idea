@@ -5,11 +5,11 @@
 		<div class="d-flex my-4 bg-light border border-info px-5">
 			<div class="cp d-flex mx-2 text-center font-italic mx-5">
 				<div class="votes mx-2">
-					<div class="mini-count">2</div>
+					<div class="mini-count" th:text="${feature.votes}">2</div>
 					<div>votes</div>
 				</div>
 				<div class="comments mx-2">
-					<div class="mini-count">2</div>
+					<div class="mini-count" th:text="${#lists.size(feature.comments)}">2</div>
 					<div>comments</div>
 				</div>
 			</div>
