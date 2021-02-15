@@ -2,7 +2,9 @@ package com.example.reddit_rep.web;
 
 import com.example.reddit_rep.domain.Feature;
 import com.example.reddit_rep.domain.User;
+import com.example.reddit_rep.domain.Vote;
 import com.example.reddit_rep.service.FeatureService;
+import com.example.reddit_rep.service.VoteService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,9 +22,11 @@ import java.util.Optional;
 public class FeatureController {
 
     private final FeatureService featureService;
+    private final VoteService voteService;
 
-    public FeatureController(FeatureService featureService) {
+    public FeatureController(FeatureService featureService, VoteService voteService) {
         this.featureService = featureService;
+        this.voteService = voteService;
     }
 
     @PostMapping("")
@@ -39,9 +43,16 @@ public class FeatureController {
         if (featureOpt.isPresent()) {
             Feature feature = featureOpt.get();
             modelMap.put("feature", feature);
-            modelMap.put("votes", feature.getVotes());
             //modelMap.put("comments", feature.getComments());
         } //TODO: handle situation can't find feature by its id
+
+        Vote vote = voteService.checkVote(featureId, user.getId());
+        if (vote != null) {
+            modelMap.put("isVote", true);
+            modelMap.put("typeVote", vote.isUpVote());
+        } else {
+            modelMap.put("isVote", false);
+        }
 
         modelMap.put("user", user);
 
