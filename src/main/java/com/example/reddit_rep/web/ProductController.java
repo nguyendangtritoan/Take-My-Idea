@@ -34,11 +34,12 @@ public class ProductController {
     }
 
     @GetMapping("/id/{productId}")
-    public String getProduct(@PathVariable Long productId, ModelMap modelMap, HttpServletResponse response) throws IOException {
+    public String getProduct(@AuthenticationPrincipal User user, @PathVariable Long productId, ModelMap modelMap, HttpServletResponse response) throws IOException {
         Optional<Product> productOptional = productService.findProductById(productId);
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
             modelMap.put("product", product);
+            modelMap.put("user", user);
         } else {
             response.sendError(HttpStatus.NOT_FOUND.value(), "Product with id " + productId + " was not found");
             return "product";

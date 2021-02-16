@@ -17,15 +17,21 @@
 		<div class="form-group row">
 			<label class="col-12 col-sm-3 col-md-2 col-form-label" for="name">Name: </label>
 			<div class="col-12 col-sm-9 col-md-10">
-				<input class="form-control" id="name" name="name" th:field="${product.name}" type="text" />
+				<input class="form-control" id="name" name="name"
+				       th:disabled="${user.id == product.user.id ? 'false' : 'true'}" th:field="${product.name}"
+				       type="text" />
 			</div>
 		</div>
 
 		<div class="custom-control custom-switch">
-			<input class="custom-control-input" id="exampleCheck1" th:field="${product.published}" type="checkbox">
+			<input class="custom-control-input" id="exampleCheck1"
+			       th:disabled="${user.id == product.user.id ? 'false' : 'true'}" th:field="${product.published}"
+			       type="checkbox" />
 			<label class="custom-control-label" for="exampleCheck1">Published</label>
 		</div>
-		<button class="btn btn-primary" type="submit">Save product</button>
+		<button class="btn btn-primary" th:disabled="${user.id == product.user.id ? 'false' : 'true'}" type="submit">
+			Save product
+		</button>
 	</form>
 </div>
 </body>
