@@ -10,6 +10,7 @@
 * Spring Security
 * MySQL
 * Thymeleaf (Bootstrap)
+* jQuery
 * Maven
 
 ## `Usage`

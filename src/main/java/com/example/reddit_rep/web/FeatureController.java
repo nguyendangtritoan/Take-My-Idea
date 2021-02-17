@@ -38,7 +38,7 @@ public class FeatureController {
     }
 
     @GetMapping("/id/{featureId}")
-    public String getFeature(@AuthenticationPrincipal User user, @PathVariable Long productId, @PathVariable Long featureId, ModelMap modelMap) {
+    public String getFeature(@AuthenticationPrincipal User user, @PathVariable Long featureId, ModelMap modelMap) {
         Optional<Feature> featureOpt = featureService.findById(featureId);
         if (featureOpt.isPresent()) {
             Feature feature = featureOpt.get();
@@ -60,7 +60,7 @@ public class FeatureController {
     }
 
     @PostMapping("/id/{featureId}")
-    public String updateFeature(@AuthenticationPrincipal User user, Feature feature, @PathVariable Long productId, @PathVariable Long featureId) {
+    public String updateFeature(@AuthenticationPrincipal User user, Feature feature) {
 
         feature.setUser(user);
         feature = featureService.save(feature);

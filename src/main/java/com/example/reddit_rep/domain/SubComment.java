@@ -2,39 +2,24 @@ package com.example.reddit_rep.domain;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
 
 @Entity
-public class Comment implements Comparable<Comment> {
-
+public class SubComment implements Comparable<SubComment> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
     private Date createdDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Feature feature;
-
     @ManyToOne
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
-    private Set<SubComment> children = new TreeSet<>();
+    @ManyToOne
+    private Comment parent;
 
-    public Comment() {
+    public SubComment() {
     }
 
-    public void addChildren(SubComment subComment) {
-        children.add(subComment);
-        subComment.setParent(this);
-    }
-
-    public void removeChildren(SubComment subComment) {
-        children.remove(subComment);
-        subComment.setParent(null);
-    }
 
     public Date getCreatedDate() {
         return createdDate;
@@ -60,14 +45,6 @@ public class Comment implements Comparable<Comment> {
         this.content = content;
     }
 
-    public Feature getFeature() {
-        return feature;
-    }
-
-    public void setFeature(Feature feature) {
-        this.feature = feature;
-    }
-
     public User getUser() {
         return user;
     }
@@ -76,16 +53,16 @@ public class Comment implements Comparable<Comment> {
         this.user = user;
     }
 
-    public Set<SubComment> getChildren() {
-        return children;
+    public Comment getParent() {
+        return parent;
     }
 
-    public void setChildren(Set<SubComment> children) {
-        this.children = children;
+    public void setParent(Comment parent) {
+        this.parent = parent;
     }
 
     @Override
-    public int compareTo(Comment that) {
+    public int compareTo(SubComment that) {
         int compareValue = this.createdDate.compareTo(that.createdDate);
         if (compareValue == 0) {
             compareValue = this.id.compareTo(that.id);
