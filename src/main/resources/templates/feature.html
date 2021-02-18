@@ -6,20 +6,21 @@
 	<link href="../static/styles/feature.css" rel="stylesheet" th:href="@{/styles/feature.css}" />
 	<title>Feature Vote Product</title>
 	<script type="text/javascript">
-        /*$('#like').on("click", function() {
-
-        });
-
-        $('#unlike').on("click", function() {
-            $('#path-unlike').css("fill","red");
-        });*/
         $(function () {
             $("div[id*='replyBtn-']").click(function () {
                 let commentId = $(this).prop("id").split("-")[1]
                 let formId = "replyForm-" + commentId
-                $("#" + formId).toggle()
+                $('[id^="replyForm-"]').hide();
+                $("#" + formId).show(1000)
+            })
+
+            $("button[id*='cancel-btn-reply-']").click(function () {
+                let commentId = $(this).prop("id").split("-")[3]
+                let formId = "replyForm-" + commentId
+                $("#" + formId).hide(1000)
             })
         })
+
 	</script>
 </head>
 <body>
@@ -97,6 +98,9 @@
 					</div>
 					<div>
 						<button class="btn btn-dark float-right" type="submit">Add Comment</button>
+					</div>
+					<div>
+						<button class="cancel-btn float-right" type="button">CANCEL</button>
 					</div>
 				</form>
 				<div th:replace="fragments/comment.html :: commentThread"></div>

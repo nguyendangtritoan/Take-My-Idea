@@ -15,3 +15,44 @@
     transition: .5s;
     transform: translate3d(0px, 4px, 0px)
 }
+
+.cancel-btn {
+    transition-duration: 0.4s;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10%;
+    background-color: transparent;
+    height: 2.4em;
+    margin-right: 1em;
+    font-weight: 400;
+    vertical-align: middle;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: none;
+}
+
+.cancel-btn:active:after {
+    background-color: #a8a8a8;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+.cancel-btn:after {
+    content: "";
+    background: #a8a8a8;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.cancel-btn:focus {
+    outline: 0;
+}
+
