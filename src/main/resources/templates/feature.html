@@ -7,20 +7,81 @@
 	<title>Feature Vote Product</title>
 	<script type="text/javascript">
         $(function () {
+            $("button[id^='unlikeBtn-sub-']").click(function () {
+                let commentId = $(this).prop("id").split("-")[2]
+                let path_id = "unlike-path-sub-" + commentId
+                if (rgb2hex($("#" + path_id).css("fill")) !== "#ff0000") {
+                    $("#" + path_id).css({"fill": "red"})
+                } else {
+                    $("#" + path_id).css({"fill": "#a8a8a8"})
+                }
+            })
+
+            $("button[id^='likeBtn-sub-']").click(function () {
+                let commentId = $(this).prop("id").split("-")[2]
+                let path_id = "like-path-sub-" + commentId
+                if (rgb2hex($("#" + path_id).css("fill")) !== "#ff0000") {
+                    $("#" + path_id).css({"fill": "red"})
+                } else {
+                    $("#" + path_id).css({"fill": "#a8a8a8"})
+                }
+            })
+        })
+
+        $(function () {
+            $("button[id^='unlikeBtn-']").click(function () {
+                let commentId = $(this).prop("id").split("-")[1]
+                let path_id = "unlike-path-" + commentId
+                if (rgb2hex($("#" + path_id).css("fill")) !== "#ff0000") {
+                    $("#" + path_id).css({"fill": "red"})
+                } else {
+                    $("#" + path_id).css({"fill": "#a8a8a8"})
+                }
+            })
+
+            $("button[id^='likeBtn-']").click(function () {
+                let commentId = $(this).prop("id").split("-")[1]
+                let path_id = "like-path-" + commentId
+                if (rgb2hex($("#" + path_id).css("fill")) !== "#ff0000") {
+                    $("#" + path_id).css({"fill": "red"})
+                } else {
+                    $("#" + path_id).css({"fill": "#a8a8a8"})
+                }
+            })
+
             $("div[id*='replyBtn-']").click(function () {
                 let commentId = $(this).prop("id").split("-")[1]
                 let formId = "replyForm-" + commentId
                 $('[id^="replyForm-"]').hide();
-                $("#" + formId).show(1000)
+                $("#" + formId).show(500)
             })
 
             $("button[id*='cancel-btn-reply-']").click(function () {
                 let commentId = $(this).prop("id").split("-")[3]
                 let formId = "replyForm-" + commentId
-                $("#" + formId).hide(1000)
+                $("#" + formId).hide(500)
+            })
+
+            $("a[id*='see-hide-btn-']").click(function () {
+                let commentId = $(this).prop("id").split("-")[3]
+                let subComments = "sub-comments-" + commentId
+                let seeId = "see-group-" + commentId
+                let hideId = "hide-group-" + commentId
+                $("#" + subComments).toggle(500)
+                $("#" + seeId).toggle(500)
+                $("#" + hideId).toggle(500)
             })
         })
 
+        function rgb2hex(rgb) {
+            rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+
+            function hex(x) {
+                return ("0" + parseInt(x).toString(16)).slice(-2);
+            }
+
+            return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+        }
 	</script>
 </head>
 <body>

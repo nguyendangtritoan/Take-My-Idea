@@ -50,11 +50,16 @@ public class CommentController {
 
         Optional<Feature> featureOptional = featureService.findById(featureId);
 
+        Comment parent = commentService.findById(parentId);
+
         SubComment subComment = new SubComment();
         subComment.setContent(content);
         subComment.setCreatedDate(new Date());
         subComment.setUser(user);
+        subComment.setParent(parent);
+        parent.addChildren(subComment);
 
+        commentService.saveSubComment(subComment);
 
         return "redirect:/product/id/" + productId + "/feature/id/" + featureId;
     }
