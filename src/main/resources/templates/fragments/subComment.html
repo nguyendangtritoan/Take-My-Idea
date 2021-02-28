@@ -2,7 +2,7 @@
 <body>
 <div th:fragment="subCommentThread" th:remove="tag">
 	<div style="margin-top: 2em; display: none" th:each="subComment : ${comment.children}"
-	     th:id="|sub-comments-${comment.id}|">
+	     th:class="|sub-comments-${comment.id}|">
 		<div>
 			<div class="d-flex flex-row bd-highlight">
 				<div style="color: teal; font-weight: bolder; font-size: small" th:text="${subComment.user.name}">

@@ -3,6 +3,7 @@ package com.example.reddit_rep.domain;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 @Entity
@@ -21,6 +22,7 @@ public class Comment implements Comparable<Comment> {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
+    @OrderBy("createdDate, id")
     private Set<SubComment> children = new TreeSet<>();
 
     public Comment() {
@@ -86,10 +88,10 @@ public class Comment implements Comparable<Comment> {
 
     @Override
     public int compareTo(Comment that) {
-        int compareValue = this.createdDate.compareTo(that.createdDate);
-        if (compareValue == 0) {
-            compareValue = this.id.compareTo(that.id);
+        int comparedValue = this.createdDate.compareTo(that.createdDate);
+        if (comparedValue == 0) {
+            comparedValue = this.id.compareTo(that.id);
         }
-        return compareValue;
+        return comparedValue;
     }
 }

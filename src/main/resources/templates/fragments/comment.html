@@ -73,7 +73,7 @@
 					<input name="parent_id" th:id="|parentId-${comment.id}|" th:value="${comment.id}" type="hidden" />
 					<div class="form-group" style="margin-top: 1.5em">
 						<input autocomplete="off" class="comment-input" name="content"
-						       placeholder="Type something..." th:id="|childCommentText-${comment.id}|" type="text" />
+						       placeholder="Type something..." th:id="|childCommentText-${comment.id}|" type="text" required />
 					</div>
 					<div>
 						<button class="btn btn-dark float-right" type="submit">REPLY</button>

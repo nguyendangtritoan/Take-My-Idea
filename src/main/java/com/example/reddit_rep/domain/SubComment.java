@@ -20,7 +20,6 @@ public class SubComment implements Comparable<SubComment> {
     public SubComment() {
     }
 
-
     public Date getCreatedDate() {
         return createdDate;
     }
