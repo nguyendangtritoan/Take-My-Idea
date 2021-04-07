@@ -28,6 +28,7 @@ public class ProductService {
         Product existingProduct = productRepository.findById(productId).orElse(null);
         assert existingProduct != null;
         existingProduct.setPublished(product.getPublished());
+        existingProduct.setDescription(product.getDescription());
         existingProduct.setName(product.getName());
         return productRepository.save(existingProduct);
     }

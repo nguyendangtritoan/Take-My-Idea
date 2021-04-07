@@ -34,7 +34,7 @@
 								Not known
 							</span>
 					</h6>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+					<p class="card-text" th:text="${product.description}">Content of description</p>
 					<a class="btn btn-warning" th:href="@{/product/id/{productId}(productId=${product.id})}">Edit</a>
 					<a class="btn btn-info" th:href="@{/product/name/{productName}(productName=${product.name})}">View
 					                                                                                              feature

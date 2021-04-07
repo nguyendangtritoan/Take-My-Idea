@@ -20,6 +20,8 @@ public class Product {
 
     private Boolean published;
 
+    private String description;
+
     public Product() {
     }
 
@@ -31,6 +33,14 @@ public class Product {
     public void removeFeature(Feature feature) {
         features.remove(feature);
         feature.setProduct(null);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean getPublished() {
